@@ -2,27 +2,25 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Pizza } from '../../models/pizza.model';
-import { PizzasService } from '../../services/pizzas.service';
+import { PizzasService } from '../../services';
 
 import { Topping } from '../../models/topping.model';
-import { ToppingsService } from '../../services/toppings.service';
+import { ToppingsService } from '../../services';
 
 @Component({
   selector: 'product-item',
   styleUrls: ['product-item.component.scss'],
   template: `
-    <div 
-      class="product-item">
+    <div class="product-item">
       <pizza-form
         [pizza]="pizza"
         [toppings]="toppings"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
-        (remove)="onRemove($event)">
-        <pizza-display
-          [pizza]="visualise">
-        </pizza-display>
+        (remove)="onRemove($event)"
+      >
+        <pizza-display [pizza]="visualise"> </pizza-display>
       </pizza-form>
     </div>
   `,
@@ -46,7 +44,7 @@ export class ProductItemComponent implements OnInit {
       if (param === 'new') {
         pizza = {};
       } else {
-        pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
+        pizza = pizzas.find(p => p.id === parseInt(param, 10));
       }
       this.pizza = pizza;
       this.toppingsService.getToppings().subscribe(toppings => {
