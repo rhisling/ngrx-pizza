@@ -21,7 +21,7 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const getRouterState = createFeatureSelector<
-  fromRouter.RouterReducerState
+  fromRouter.RouterReducerState<RouterStateUrl>
 >('routerReducer');
 
 // custom serializer
